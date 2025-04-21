@@ -1,0 +1,892 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>AI Study Buddy</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background-color: #f0f0f0;
+      }
+  
+      nav {
+        background-color: #4CAF50;
+        padding: 1rem;
+        text-align: center;
+      }
+  
+      nav button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 18px;
+        margin: 0 1rem;
+        cursor: pointer;
+      }
+  
+      nav button:hover {
+        text-decoration: underline;
+      }
+  
+      .container {
+        max-width: 700px;
+        margin: 2rem auto;
+        background-color: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      }
+  
+      input[type="text"], input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        font-size: 16px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+      }
+  
+      button.action-btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+  
+      button.action-btn:hover {
+        background-color: #45a049;
+      }
+  
+      .response-box {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        white-space: pre-wrap;
+      }
+  
+      .hidden {
+        display: none;
+      }
+  
+      h2 {
+        text-align: center;
+      }
+  
+      #timer {
+        font-size: 3rem;
+        margin: 1rem 0;
+        text-align: center;
+      }
+  
+      .controls button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 0 10px;
+      }
+  
+      .controls button:disabled {
+        background-color: #d3d3d3;
+        cursor: not-allowed;
+      }
+      nav {
+        background-color: #4CAF50;
+        padding: 1rem;
+        text-align: center;
+      }
+
+      nav button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 18px;
+        margin: 0 1rem;
+        cursor: pointer;
+      }
+
+      nav button:hover {
+        text-decoration: underline;
+      }
+
+      .container {
+        max-width: 700px;
+        margin: 2rem auto;
+        background-color: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      input[type="text"], input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        font-size: 16px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+      }
+
+      button.action-btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button.action-btn:hover {
+        background-color: #45a049;
+      }
+
+      .response-box {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        white-space: pre-wrap;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      h2 {
+        text-align: center;
+      }
+
+      #timer {
+        font-size: 3rem;
+        margin: 1rem 0;
+        text-align: center;
+      }
+
+      .controls button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 0 10px;
+      }
+
+      .controls button:disabled {
+        background-color: #d3d3d3;
+        cursor: not-allowed;
+      }
+
+      .calendar-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      .calendar-table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+      }
+
+      .calendar-table th, .calendar-table td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+        position: relative;
+      }
+
+      .calendar-table th {
+        background-color: #4CAF50;
+        color: white;
+      }
+
+      .calendar-table td {
+        cursor: pointer;
+      }
+
+      .calendar-table td:hover {
+        background-color: #f0f0f0;
+      }
+
+      .pin {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        font-size: 16px;
+        color: red;
+      }
+
+      .task-list {
+        margin-top: 20px;
+      }
+
+      .task-item {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 4px;
+      }
+
+      .task-item button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        font-size: 14px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .task-item button:hover {
+        background-color: #45a049;
+      }
+      
+  .hidden {
+    display: none;
+  }
+  .calendar-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+  }
+  .calendar-table td, .calendar-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    height: 50px;
+    cursor: pointer;
+  }
+  .task-list {
+    margin-top: 20px;
+  }
+  .task-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+  }
+  .action-btn {
+    margin-top: 10px;
+  }
+  .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .profile-img {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background-color: #555;
+    }
+
+    /* Profile details box */
+    .profile-details {
+      display: none;
+      position: absolute;
+      right: 20px;
+      top: 50px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      width: 250px;
+      font-size: 14px;
+    }
+
+    .profile-details h3 {
+      margin: 0;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .profile-details p {
+      margin: 5px 0;
+    }
+
+    /* Dashboard content */
+    .dashboard-content {
+      padding: 20px;
+    }
+    .today-cell {
+  background-color: #e0f7fa;
+  border: 2px solid #00796b;
+  border-radius: 50%;
+  font-weight: bold;
+  color: #00796b;
+}
+
+</style>
+
+
+
+    </style>
+  </head>
+  
+  <body>
+    <div class="navbar">
+      <div class="logo">AI Study Buddy</div>
+      <div class="profile" onclick="toggleProfileDetails()">
+        <div class="profile-img"></div>
+        <div id="profileName" class="profile-name">Hello, User</div>
+      </div>
+    </div>
+  
+    <!-- Profile details (Initially hidden) -->
+    <div id="profileDetails" class="profile-details">
+      <h3>User Profile</h3>
+      <p><strong>Name:</strong> <span id="profileFullName">John Doe</span></p>
+      <p><strong>Email:</strong> <span id="profileEmail">johndoe@example.com</span></p>
+      <p><strong>Role:</strong> <span id="profileRole">Student</span></p>
+    </div>
+    <nav>
+      
+      <button onclick="showSection('studyPlan')">📚 Study Plan Generator</button>
+      <button onclick="showSection('chat')">💬 Chat with AI</button>
+      <button onclick="showSection('quiz')">🧠 Quiz Me</button>
+      <button onclick="showSection('StudyCalendar')">📅 Study Calendar</button>
+      <button onclick="showSection('productivity')">📊 Productivity Tracker</button>
+      <button onclick="showSection('pomodoro')">⏲️ Pomodoro Timer</button>
+
+    </nav>
+    
+
+
+  
+
+  
+
+
+
+    
+
+    <div id="studyPlan" class="container ">
+      <h2>📚 AI Study Plan Generator</h2>
+      <label>Subjects (comma separated):</label>
+      <input type="text" id="subjectsInput" placeholder="e.g., Math, Physics, Chemistry">
+      <label>Number of Study Hours:</label>
+      <input type="number" id="hoursInput" placeholder="e.g., 3">
+      <button class="action-btn" onclick="generatePlan()">Generate Plan</button>
+      <div class="response-box" id="planResponseContainer"></div>
+    </div>
+
+
+
+
+
+  
+    <div id="chat" class="container hidden">
+      <h2>💬 Chat with AI</h2>
+      <input type="text" id="userMessage" placeholder="Type your question here...">
+      <button class="action-btn" onclick="sendMessage()">Send</button>
+      <div class="response-box" id="chatResponseContainer"></div>
+    </div>
+    
+  
+    <div id="quiz" class="container hidden">
+      <h2>🧠 Quiz Me</h2>
+      <label>Enter a Topic for Quiz:</label>
+      <input type="text" id="quizTopic" placeholder="e.g., Photosynthesis, Machine Learning, History of WW2">
+      <button class="action-btn" onclick="generateQuiz()">Start Quiz</button>
+      <div class="response-box" id="quizResponseContainer"></div>
+    </div>
+
+
+
+    <div id="StudyCalendar" class="container hidden">
+      <h2>📅 Study Calendar</h2>
+      <div class="calendar-container">
+        <div>
+          <button onclick="previousMonth()">Previous Month</button>
+          <span id="monthYear"></span>
+          <button onclick="nextMonth()">Next Month</button>
+        </div>
+        <table class="calendar-table" id="calendar"></table>
+      </div>
+      <div id="taskDetails" class="task-list hidden">
+        <h3>Tasks for <span id="selectedDate"></span></h3>
+        <div id="tasksContainer"></div>
+        <input type="text" id="taskInput" placeholder="Add a new task...">
+        <button class="action-btn" onclick="addTask()">Add Task</button>
+      </div>
+    </div>
+    <div id="productivity" class="container hidden">
+      <h2>📊 Productivity Tracker</h2>
+      <label>How many hours did you study today?</label>
+      <input type="number" id="studyHoursInput" placeholder="e.g., 3">
+      <label>How productive did you feel? (1–5)</label>
+      <input type="number" id="productivityRatingInput" placeholder="e.g., 4" min="1" max="5">
+      <button class="action-btn" onclick="saveEntry()">Save Entry</button>
+      <button class="action-btn" onclick="getFeedback()">Get Feedback</button>
+      <div class="response-box" id="productivityResponseContainer"></div>
+    </div>
+
+    <div id="pomodoro" class="container hidden">
+      <h2>⏲️ Pomodoro Timer</h2>
+      <label for="customTime">Set Timer (minutes):</label>
+      <input type="number" id="customTime" placeholder="e.g., 25" min="1" max="120" />
+      <div id="timer">00:00</div>
+      <div class="controls">
+        <button id="startBtn" onclick="startTimer()">Start</button>
+        <button id="stopBtn" onclick="stopTimer()" disabled>Stop</button>
+        <button id="resetBtn" onclick="resetTimer()" disabled>Reset</button>
+      </div>
+    </div>
+
+
+    
+    <div id="motivationalTipContainer" class="response-box" style="background: #f0fff0; border-left: 4px solid #2ecc71; margin-bottom: 20px;">
+      ✨ <em>Fetching today’s motivational quote...</em>
+    </div>
+    
+
+            <!-- Profile details (Initially hidden) -->
+        <div id="profileDetails" class="profile-details">
+          <h3>User Profile</h3>
+          <p><strong>Name:</strong> <span id="profileFullName">John Doe</span></p>
+          <p><strong>Email:</strong> <span id="profileEmail">johndoe@example.com</span></p>
+          <p><strong>Role:</strong> <span id="profileRole">Student</span></p>
+        </div>
+
+    <script>
+
+      // Simulate user login (This would come from your login logic)
+      const user = {
+        name: 'John Doe',
+        email: 'johndoe@example.com',
+        role: 'Student'
+      };
+  
+      // Dynamically update UI with user info
+      document.getElementById('profileName').innerText = `Hello, ${user.name}`;
+      document.getElementById('profileFullName').innerText = user.name;
+      document.getElementById('profileEmail').innerText = user.email;
+      document.getElementById('profileRole').innerText = user.role;
+  
+      // Toggle profile details visibility
+      function toggleProfileDetails() {
+        const profileDetails = document.getElementById('profileDetails');
+        if (profileDetails.style.display === 'block') {
+          profileDetails.style.display = 'none';
+        } else {
+          profileDetails.style.display = 'block';
+        }
+      }
+    </script>
+    <script>
+      function toggleProfileDetails() {
+        const details = document.getElementById("profileDetails");
+        details.style.display = details.style.display === "block" ? "none" : "block";
+      }
+    </script>
+    <script>
+      let timer;
+      let isRunning = false;
+      let secondsLeft = 0;
+  
+      function startTimer() {
+        const customMinutes = parseInt(document.getElementById("customTime").value);
+        if ((isNaN(customMinutes) || customMinutes <= 0) && secondsLeft === 0) {
+          alert("Please enter a valid number of minutes.");
+          return;
+        }
+  
+        if (isRunning) return;
+  
+        if (secondsLeft === 0) {
+          secondsLeft = customMinutes * 60;
+        }
+  
+        isRunning = true;
+        document.getElementById("startBtn").disabled = true;
+        document.getElementById("stopBtn").disabled = false;
+        document.getElementById("resetBtn").disabled = false;
+  
+        timer = setInterval(() => {
+          secondsLeft--;
+          updateDisplay();
+  
+          if (secondsLeft <= 0) {
+            clearInterval(timer);
+            isRunning = false;
+            alert("Pomodoro session is over. Time for a break!");
+            resetTimer();
+          }
+        }, 1000);
+      }
+  
+      function stopTimer() {
+        clearInterval(timer);
+        isRunning = false;
+        document.getElementById("startBtn").disabled = false;
+        document.getElementById("stopBtn").disabled = true;
+      }
+  
+      function resetTimer() {
+      clearInterval(timer);
+      isRunning = false;
+      secondsLeft = 0; // Reset secondsLeft to 0
+      updateDisplay(); // Update the display to show 00:00
+      document.getElementById("startBtn").disabled = false;
+      document.getElementById("stopBtn").disabled = true;
+      document.getElementById("resetBtn").disabled = true;
+      }
+
+  
+      function updateDisplay() {
+        const minutes = Math.floor(secondsLeft / 60);
+        const seconds = secondsLeft % 60;
+        document.getElementById("timer").innerText =
+          `${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
+      }
+  
+      function showSection(id) {
+        document.getElementById('studyPlan').classList.add('hidden');
+        document.getElementById('chat').classList.add('hidden');
+        document.getElementById('quiz').classList.add('hidden');
+        document.getElementById('productivity').classList.add('hidden');
+        document.getElementById('pomodoro').classList.add('hidden');
+        document.getElementById(id).classList.remove('hidden');
+      }
+      
+  
+      function generatePlan() {
+        const subjects = document.getElementById("subjectsInput").value;
+        const hours = document.getElementById("hoursInput").value;
+  
+        if (!subjects || !hours) {
+          alert("Please enter both subjects and hours.");
+          return;
+        }
+  
+        const userMessage = `Create a study plan for ${hours} hours. Subjects: ${subjects}`;
+        document.getElementById("planResponseContainer").innerHTML = "Planning your day...";
+  
+        fetch('/api/gemini/chat', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ query: userMessage })  // Use 'query' here instead of 'message'
+})
+
+        .then(response => response.json())
+        .then(data => {
+          if (data.response) {
+            document.getElementById("planResponseContainer").innerHTML =
+              "<strong>Today's Plan:</strong><br><br>" + data.response.replace(/\n/g, "<br>");
+          } else {
+            document.getElementById("planResponseContainer").innerHTML = "Error: " + data.error;
+          }
+        })
+        .catch(() => {
+          document.getElementById("planResponseContainer").innerHTML = "Error: Could not fetch response.";
+        });
+      }
+  
+      function sendMessage() {
+        const userMessage = document.getElementById("userMessage").value;
+  
+        if (!userMessage) {
+          alert("Please enter a question.");
+          return;
+        }
+  
+        document.getElementById("userMessage").value = "";
+        document.getElementById("chatResponseContainer").innerHTML = "Loading...";
+  
+        fetch('/api/gemini/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ message: userMessage })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.response) {
+            document.getElementById("chatResponseContainer").innerHTML =
+              "AI Response:<br><br>" + data.response.replace(/\n/g, "<br>");
+          } else {
+            document.getElementById("chatResponseContainer").innerHTML = "Error: " + data.error;
+          }
+        })
+        .catch(() => {
+          document.getElementById("chatResponseContainer").innerHTML = "Error: Could not fetch response.";
+        });
+      }
+  
+      function generateQuiz() {
+        const topic = document.getElementById("quizTopic").value;
+  
+        if (!topic) {
+          alert("Please enter a quiz topic.");
+          return;
+        }
+  
+        document.getElementById("quizResponseContainer").innerHTML = "Generating quiz...";
+  
+        fetch('/api/gemini/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ message: `Generate a quiz about ${topic}` })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.response) {
+            document.getElementById("quizResponseContainer").innerHTML =
+              "<strong>Quiz:</strong><br><br>" + data.response.replace(/\n/g, "<br>");
+          } else {
+            document.getElementById("quizResponseContainer").innerHTML = "Error: " + data.error;
+          }
+        })
+        .catch(() => {
+          document.getElementById("quizResponseContainer").innerHTML = "Error: Could not fetch response.";
+        });
+      }
+  
+      function saveEntry() {
+        const studyHours = document.getElementById("studyHoursInput").value;
+        const rating = document.getElementById("productivityRatingInput").value;
+  
+        if (!studyHours || !rating) {
+          alert("Please enter both study hours and productivity rating.");
+          return;
+        }
+  
+        const userMessage = `Save study entry for ${studyHours} hours with a rating of ${rating}`;
+  
+        document.getElementById("productivityResponseContainer").innerHTML = "Saving...";
+  
+        fetch('/api/gemini/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ message: userMessage })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.response) {
+            document.getElementById("productivityResponseContainer").innerHTML =
+              "<strong>Saved Entry:</strong><br><br>" + data.response.replace(/\n/g, "<br>");
+          } else {
+            document.getElementById("productivityResponseContainer").innerHTML = "Error: " + data.error;
+          }
+        })
+        .catch(() => {
+          document.getElementById("productivityResponseContainer").innerHTML = "Error: Could not save entry.";
+        });
+      }
+      
+  
+      function getFeedback() {
+        const studyHours = document.getElementById("studyHoursInput").value;
+        const rating = document.getElementById("productivityRatingInput").value;
+  
+        if (!studyHours || !rating) {
+          alert("Please enter both study hours and productivity rating.");
+          return;
+        }
+  
+        const userMessage = `Give feedback on studying for ${studyHours} hours with a productivity rating of ${rating}`;
+  
+        document.getElementById("productivityResponseContainer").innerHTML = "Fetching feedback...";
+  
+        fetch('/api/gemini/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ message: userMessage })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.response) {
+            document.getElementById("productivityResponseContainer").innerHTML =
+              "<strong>Feedback:</strong><br><br>" + data.response.replace(/\n/g, "<br>");
+          } else {
+            document.getElementById("productivityResponseContainer").innerHTML = "Error: " + data.error;
+          }
+        })
+        .catch(() => {
+          document.getElementById("productivityResponseContainer").innerHTML = "Error: Could not fetch feedback.";
+        });
+      }
+  
+      // Show the initial section
+      showSection('studyPlan');
+      
+    </script>-->
+    <script>
+      // JavaScript code as discussed
+      let currentDate = new Date();
+      let selectedDate = currentDate;
+      let tasks = {};
+  
+      function showSection(id) {
+        const sections = document.querySelectorAll('.container');
+        sections.forEach(section => section.classList.add('hidden'));
+        document.getElementById(id).classList.remove('hidden');
+      }
+  
+      function updateCalendar() {
+        const calendar = document.getElementById('calendar');
+        const monthYear = document.getElementById('monthYear');
+        monthYear.innerHTML = `${currentDate.toLocaleString('default', { month: 'long' })} ${currentDate.getFullYear()}`;
+  
+        const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+        const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+        const daysInMonth = lastDay.getDate();
+  
+        let day = 1;
+        let calendarHtml = '<tr>';
+        for (let i = 0; i < firstDay.getDay(); i++) {
+          calendarHtml += '<td></td>';
+        }
+        for (let i = firstDay.getDay(); day <= daysInMonth; i++) {
+          const dateKey = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${day}`;
+const hasTasks = tasks[dateKey] && tasks[dateKey].length > 0;
+
+const isToday = 
+  day === new Date().getDate() &&
+  currentDate.getMonth() === new Date().getMonth() &&
+  currentDate.getFullYear() === new Date().getFullYear();
+
+calendarHtml += `
+  <td onclick="showTasks('${dateKey}')" class="${isToday ? 'today-cell' : ''}">
+    ${day}${hasTasks ? ' 📌' : ''}
+  </td>
+`;
+
+          if (i % 7 === 6) {
+            calendarHtml += '</tr><tr>';
+          }
+          day++;
+        }
+        calendarHtml += '</tr>';
+        calendar.innerHTML = calendarHtml;
+      }
+  
+      function showTasks(date) {
+        selectedDate = date;
+        document.getElementById('selectedDate').innerHTML = date;
+        const tasksContainer = document.getElementById('tasksContainer');
+        tasksContainer.innerHTML = '';
+  
+        if (tasks[date]) {
+          tasks[date].forEach((task, index) => {
+            tasksContainer.innerHTML += `
+              <div class="task-item">
+                <span>${task}</span>
+                <button onclick="removeTask('${date}', ${index})">Remove</button>
+              </div>
+            `;
+          });
+        }
+  
+        document.getElementById('taskDetails').classList.remove('hidden');
+      }
+  
+      function addTask() {
+  const taskInput = document.getElementById('taskInput');
+  if (!taskInput.value) return;
+  
+  if (!tasks[selectedDate]) {
+    tasks[selectedDate] = [];
+  }
+
+  tasks[selectedDate].push(taskInput.value);
+  taskInput.value = '';
+  showTasks(selectedDate);
+  updateCalendar(); // ⬅️ Add this
+}
+
+  
+function removeTask(date, index) {
+  tasks[date].splice(index, 1);
+  showTasks(date);
+  updateCalendar(); // ⬅️ Add this
+}
+      function previousMonth() {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        updateCalendar();
+      }
+  
+      function nextMonth() {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        updateCalendar();
+      }
+      updateCalendar();
+    </script>
+
+<script>function fetchDailyMotivation() {
+  const message = "Give me a short motivational study quote";
+
+  fetch('/api/gemini/chat', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ message })
+  })
+    .then(response => response.json())
+    .then(data => {
+      const container = document.getElementById("motivationalTipContainer");
+      if (data.response) {
+        container.innerHTML = "📣 <strong>Motivation:</strong> <em>\"" + data.response.replace(/\n/g, " ") + "\"</em>";
+      } else {
+        container.innerHTML = "⚠️ Could not fetch a motivational quote today.";
+      }
+    })
+    .catch(() => {
+      document.getElementById("motivationalTipContainer").innerHTML = "⚠️ Error getting your daily boost.";
+    });
+}
+
+// Fetch motivation once when the page loads
+window.addEventListener('DOMContentLoaded', fetchDailyMotivation);
+</script>
+
+  
+
+  </body>
+  </html>
+  
+  
