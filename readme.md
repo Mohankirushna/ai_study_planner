@@ -27,6 +27,7 @@ Scheduling	JavaScript FullCalendar / Custom Modules
 Deployment	Flask Development Server
 
 ## 📁 Project Structure
+
 ai_study_planner/
 │
 ├── static/
