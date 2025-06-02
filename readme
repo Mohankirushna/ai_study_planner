@@ -67,8 +67,31 @@ ai_study_planner/
 📅 View schedule in study calendar
 
 🔧 Setup Instructions
-```bash 1. Clone the Repository
+1. Clone the Repository
 git clone https://github.com/Mohankirushna/ai_study_planner.git
-cd ai_study_planner```
+cd ai_study_planner
+2. Create and Activate a Virtual Environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+3.Set Up API Key
+Create a .env file in the root directory with your Gemini key:
+GEMINI_API_KEY=your_actual_gemini_api_key_here
+4.Run the App
+python app.py
+
+🧠 Powered By
+Gemini Pro API (Google Generative AI)
+Flask
+JavaScript FullCalendar 
+HTML, CSS, JS
+
+🚀 Future Enhancements
+ Daily email reminders for study plans
+ Sync with Google Calendar
+ User profiles with history
+ Data analytics for long-term productivity
+ Mobile PWA support
 
 
+📝 License
+Licensed under the MIT License
