@@ -27,7 +27,7 @@ Scheduling	JavaScript FullCalendar / Custom Modules
 Deployment	Flask Development Server
 
 ## 📁 Project Structure
-
+```
 ai_study_planner/
 │
 ├── static/
@@ -48,6 +48,7 @@ ai_study_planner/
 ├── requirements.txt         # Dependencies
 ├── .env                     # Gemini API Key (keep secret!)
 └── README.md
+```
 
 
 ## 🧪 How to Use
