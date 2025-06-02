@@ -1,7 +1,7 @@
-🧠 AI Study Planner
+# 🧠 AI Study Planner
 Your personal AI-powered academic companion built with Flask, HTML/CSS/JavaScript, and Gemini API. The app helps students study smarter with intelligent features like plan generation, productivity tracking, AI chat, quizzes, and more — all in one place.
 
-🚀 Features
+## 🚀 Features
 Feature	Description
 📚 Study Plan Generator	AI-generated daily plans tailored to your subjects and time availability.
 💬 Chat with AI	Ask academic questions or get study suggestions using Gemini API.
@@ -11,16 +11,13 @@ Feature	Description
 ⏲️ Pomodoro Timer	Boost concentration with a built-in Pomodoro technique timer.
 📁 Upload Material	Upload PDFs, notes, or textbooks to personalize your AI experience.
 
-🎯 Objective
+## 🎯 Objective
 The app aims to:
-
 Help students optimize time and retain information.
-
 Deliver personalized, engaging, and adaptive study experiences.
-
 Blend productivity techniques (Pomodoro, calendar scheduling) with AI assistance.
 
-🛠️ Tech Stack
+## 🛠️ Tech Stack
 Layer	Technologies
 Frontend	HTML5, CSS3, JavaScript
 Backend	Python, Flask
@@ -29,7 +26,7 @@ Styling	Custom CSS, Bootstrap (optional)
 Scheduling	JavaScript FullCalendar / Custom Modules
 Deployment	Flask Development Server
 
-📁 Project Structure
+## 📁 Project Structure
 ai_study_planner/
 │
 ├── static/
@@ -51,22 +48,16 @@ ai_study_planner/
 ├── .env                     # Gemini API Key (keep secret!)
 └── README.md
 
-🧪 How to Use
+## 🧪 How to Use
 📝 Enter subjects + time → Get AI-generated study plan
-
 💬 Chat with the Gemini-powered assistant for help
-
 📁 Upload materials (PDFs, notes) to tailor AI responses
-
 🧠 Quiz yourself using uploaded or AI-suggested questions
-
 ⏱️ Use Pomodoro timer to stay productive
-
 📊 Track productivity metrics
-
 📅 View schedule in study calendar
 
-🔧 Setup Instructions
+## 🔧 Setup Instructions
 1. Clone the Repository
 git clone https://github.com/Mohankirushna/ai_study_planner.git
 cd ai_study_planner
@@ -79,13 +70,13 @@ GEMINI_API_KEY=your_actual_gemini_api_key_here
 4.Run the App
 python app.py
 
-🧠 Powered By
+## 🧠 Powered By
 Gemini Pro API (Google Generative AI)
 Flask
 JavaScript FullCalendar 
 HTML, CSS, JS
 
-🚀 Future Enhancements
+## 🚀 Future Enhancements
  Daily email reminders for study plans
  Sync with Google Calendar
  User profiles with history
@@ -93,5 +84,5 @@ HTML, CSS, JS
  Mobile PWA support
 
 
-📝 License
+## 📝 License
 Licensed under the MIT License
