@@ -48,6 +48,7 @@ ai_study_planner/
 ├── .env                     # Gemini API Key (keep secret!)
 └── README.md
 
+
 ## 🧪 How to Use
 📝 Enter subjects + time → Get AI-generated study plan
 💬 Chat with the Gemini-powered assistant for help
